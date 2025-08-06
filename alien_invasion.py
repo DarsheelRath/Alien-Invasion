@@ -34,8 +34,8 @@ class AlienInvasion:
         self.ship = Ship(self)
         self._create_fleet()
 
-        # Start alien Invasion in an active state
-        self.game_active = True
+        # Start alien Invasion in an inactive state
+        self.game_active = False
 
         pygame.display.toggle_fullscreen()
         pygame.display.toggle_fullscreen()
