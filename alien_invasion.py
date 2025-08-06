@@ -45,9 +45,12 @@ class AlienInvasion:
         while True:
             # Watch for keyboard and mouse events
             self._check_events()
-            self.ship.update()
-            self._update_bullets()
-            self._update_aliens()
+            if self.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_aliens()
+            else:
+                sys.exit()
             self._update_screen()
             self.clock.tick(60)
     def _check_events(self):
@@ -118,6 +121,8 @@ class AlienInvasion:
 
             #Pause.
             sleep(0.5)
+        else:
+            self.game_active = False
 
 
     def _update_aliens(self):
