@@ -32,7 +32,10 @@ class AlienInvasion:
         self.aliens = pygame.sprite.Group()
         self.ship = Ship(self)
         self._create_fleet()
+
         # Start alien Invasion in an active state
+        self.game_active = True
+
         pygame.display.toggle_fullscreen()
         pygame.display.toggle_fullscreen()
 
@@ -101,19 +104,20 @@ class AlienInvasion:
             self._create_fleet()
     def _ship_hit(self):
         """Respond to the ship being hit by an alien."""
-        # Decrement ships left
-        self.stats.ships_left -= 1
+        if self.stats.ships_left > 0:
+            # Decrement ships left
+            self.stats.ships_left -= 1
 
-        #Get rid of any remaining bullets and aliens.
-        self.bullets.empty()
-        self.aliens.empty()
+            #Get rid of any remaining bullets and aliens.
+            self.bullets.empty()
+            self.aliens.empty()
 
-        #Create a new fleet and center the ship
-        self._create_fleet()
-        self.ship.center_ship()
+            #Create a new fleet and center the ship
+            self._create_fleet()
+            self.ship.center_ship()
 
-        #Pause.
-        sleep(0.5)
+            #Pause.
+            sleep(0.5)
 
 
     def _update_aliens(self):
