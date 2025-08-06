@@ -1,5 +1,6 @@
 import sys
 import pygame
+from time import sleep
 
 from settings import Settings
 from ship import Ship
@@ -25,7 +26,7 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
 
         #Create an instance to store game statistics
-
+        
 
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
