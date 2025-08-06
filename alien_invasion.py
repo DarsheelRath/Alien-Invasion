@@ -32,6 +32,7 @@ class AlienInvasion:
         self.aliens = pygame.sprite.Group()
         self.ship = Ship(self)
         self._create_fleet()
+        # Start alien Invasion in an active state
         pygame.display.toggle_fullscreen()
         pygame.display.toggle_fullscreen()
 
@@ -123,6 +124,8 @@ class AlienInvasion:
         #Look for alien-ship colisions.
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._ship_hit()
+        #Look for aliens hitting the bottom of the screen.
+        self._check_aliens_bottom()
     
     def _create_fleet(self):
         """Create the fleet of aliens"""
@@ -153,6 +156,14 @@ class AlienInvasion:
         for alien in self.aliens.sprites():
             if alien.check_edge():
                 self._change_fleet_direction()        
+    def _check_aliens_bottom(self):
+        """Check if any aliens have reached the bottom of the screen. """
+        for alien in self.aliens.copy():
+            if alien.rect.bottom >= self.settings.screen_height:
+                #Treat it the same as if the ship got hit.
+                self._ship_hit()
+                break 
+
 
     def _change_fleet_direction(self):
         """Drop the entire fleet and change the fleet's direction"""
