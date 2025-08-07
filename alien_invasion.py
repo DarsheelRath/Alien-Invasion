@@ -56,7 +56,6 @@ class AlienInvasion:
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
-                
             self._update_screen()
             self.clock.tick(60)
     def _check_events(self):
@@ -68,6 +67,7 @@ class AlienInvasion:
                 self._check_play_button(mouse_pos)
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
+                self._check_keyboard_start(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
     def _check_play_button(self, mouse_pos):
@@ -89,7 +89,12 @@ class AlienInvasion:
             self.ship.center_ship()
             #Hide the mouse cursor
             pygame.mouse.set_visible(False)
-            
+
+
+    def _check_keyboard_start(self, event):
+        if event.key == pygame.K_p and not self.game_active:
+            self.game_active = True
+
     def _check_keydown_events(self, event):
         """Respond to keypresses"""
         if event.key == pygame.K_RIGHT:
