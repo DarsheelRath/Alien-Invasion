@@ -93,7 +93,21 @@ class AlienInvasion:
 
     def _check_keyboard_start(self, event):
         if event.key == pygame.K_p and not self.game_active:
+            #Reset game settings
+            self.settings.initialize_dynamic_settings()
+            #Reset the game stats
+            self.stats.reset_stats()
+            self.sb.prep_score()
             self.game_active = True
+            # Get rid of any remaining bullets and aliens
+            self.bullets.empty()
+            self.aliens.empty()
+
+            #Create a new fleet and center the ship.
+            self._create_fleet()
+            self.ship.center_ship()
+            #Hide the mouse cursor
+            pygame.mouse.set_visible(False)
 
     def _check_keydown_events(self, event):
         """Respond to keypresses"""
@@ -138,7 +152,9 @@ class AlienInvasion:
         if collisions:
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points * len(aliens)
+            
             self.sb.prep_score()
+            self.sb.check_high_score()
 
         if not self.aliens:
             #Destroy existing bullets and create new fleet
