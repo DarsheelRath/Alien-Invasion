@@ -20,10 +20,10 @@ class Settings:
         # Alien settings
         self.fleet_drop_speed = 10
 
-        #How quickly the game speeds up
+        # How quickly the game speeds up
         self.speedup_scale = 1.2
 
-        #How quickly the alien point values change
+        # How quickly the alien point values change
         self.score_scale = 1.5
 
         self.initialize_dynamic_settings()
