@@ -1,6 +1,5 @@
 import sys
 import pygame
-from AlienInvasionAlerts import OutOfShipsAlert
 from time import sleep
 
 from settings import Settings
