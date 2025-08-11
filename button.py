@@ -1,4 +1,5 @@
-import pygame.font
+import pygame
+import pygame.freetype
 
 class Button:
     """A class to build buttons for the game """
@@ -12,7 +13,8 @@ class Button:
         self.width, self.height = 200, 50
         self.button_color = (0, 135, 0)
         self.text_color = (255, 255, 255)
-        self.font = pygame.font.Font("/Library/fonts/Courier.ttf", 48)
+        self.bg_color = (0 , 0 , 75 )
+        self.font = pygame.freetype.Font("/Library/fonts/Courier.ttf", 48)
         
 
         #Build the button's rect object and center it
@@ -24,11 +26,11 @@ class Button:
 
     def _prep_msg(self, msg):
         """Turn msg into a rendered image and center text on the button"""
-        self.msg_image = self.font.render(msg, True, self.text_color, self.button_color)
-        self.msg_image_rect = self.msg_image.get_rect()
+        self.msg_image, self.msg_image_rect = self.font.render(msg, fgcolor=self.text_color, bgcolor=self.bg_color)
+        
         self.msg_image_rect.center = self.rect.center
 
     def draw_button(self):
         """Draw blank button and then draw message."""
-        self.screen.fill(self.button_color, self.rect)
+        self.screen.fill(self.bg_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)

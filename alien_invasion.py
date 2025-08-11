@@ -9,6 +9,7 @@ from alien import Alien
 from game_stats import GameStats
 from scoreboard import Scoreboard
 from button import Button
+from sounds import Sounds
 
 class AlienInvasion:
     """ Overall class to manage game assets and behavior """
@@ -37,6 +38,9 @@ class AlienInvasion:
         self.ship = Ship(self)
         self._create_fleet()
 
+        #Make a sound instance
+        self.sounds = Sounds()
+
         # Start Alien Invasion in an inactive state
         self.game_active = False
 
@@ -56,6 +60,8 @@ class AlienInvasion:
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
+            if self.game_active == False:
+                pygame.mouse.set_cursor(pygame.cursors.diamond)
             self._update_screen()
             self.clock.tick(60)
     def _check_events(self):
@@ -133,6 +139,7 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+            self.sounds.bullet_noise()
     
     def _update_bullets(self):
         """Update position of bullets and get rid of old bullets."""
@@ -158,6 +165,7 @@ class AlienInvasion:
             
             self.sb.prep_score()
             self.sb.check_high_score()
+            self.sounds.collide_noise()
 
         if not self.aliens:
             #Destroy existing bullets and create new fleet
